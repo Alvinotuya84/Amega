@@ -44,6 +44,16 @@ const DashBoardScreen = (props: Props) => {
           }}
         />
       </LinearGradientBox>
+      <Box
+        flex={1}
+        radiusTop={scale(20)}
+        mt={scale(-40)}
+        pa={scale(20)}
+        color={theme.background}>
+        <ThemedText color={theme.primary} size={'xxl'} weight="bold">
+          My Gallery
+        </ThemedText>
+      </Box>
     </Box>
   );
 };

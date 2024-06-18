@@ -1,4 +1,10 @@
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  ImageSourcePropType,
+} from 'react-native';
 import React from 'react';
 import SettingsStore from '@/src/app/store2';
 import Page from '@/src/components/reusables/Page';
@@ -40,7 +46,9 @@ const ProfileScreen = (props: Props) => {
   };
   return (
     <Page>
-      <ImageBackground style={styles.container} source={userIpDetails?.image}>
+      <ImageBackground
+        style={styles.container}
+        source={userIpDetails?.image as ImageSourcePropType}>
         <Box wrap="wrap" direction="row" justify="space-around">
           <IpDetailsWrapper title="IP Address" value={userIpDetails?.ip} />
           <IpDetailsWrapper

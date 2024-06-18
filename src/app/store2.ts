@@ -3,10 +3,11 @@ import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {IpLocationResponse} from '../types/locationinfo';
 import {Source} from 'react-native-fast-image';
+import {ImageSourcePropType} from 'react-native';
 
 type ThemeType = 'light' | 'dark' | 'system';
 interface UserIpDetailsType extends IpLocationResponse {
-  image: Source;
+  image: Source | ImageSourcePropType;
 }
 interface useMainStoreType {
   theme: ThemeType;

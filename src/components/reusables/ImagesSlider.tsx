@@ -68,7 +68,7 @@ const ImageSlider = ({
         type="text"
         onPress={() => {
           setSelected(index);
-          scrollRef.current.scrollToOffset({
+          scrollRef?.current.scrollToOffset({
             offset: index * itemWidth,
             animated: true,
           });

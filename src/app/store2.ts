@@ -8,15 +8,15 @@ type ThemeType = 'light' | 'dark' | 'system';
 interface UserIpDetailsType extends IpLocationResponse {
   image: Source;
 }
-interface SettingsStoreType {
+interface useMainStoreType {
   theme: ThemeType;
   setTheme: (theme: ThemeType) => void;
-  userIpDetails: IpLocationResponse | null;
+  userIpDetails: UserIpDetailsType | null;
   setUserIpDetails: (details: UserIpDetailsType) => void;
 }
 
-const SettingsStore = create(
-  persist<SettingsStoreType>(
+const useMainStore = create(
+  persist<useMainStoreType>(
     (set, get) => ({
       theme: 'system',
       setTheme: theme => set({theme}),
@@ -30,4 +30,4 @@ const SettingsStore = create(
   ),
 );
 
-export default SettingsStore;
+export default useMainStore;

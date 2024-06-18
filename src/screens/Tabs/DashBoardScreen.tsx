@@ -15,8 +15,9 @@ import ThemedButton from '@/src/components/reusables/ThemedButton';
 import ThemedIcon from '@/src/components/reusables/ThemedIcon';
 import {sWidth} from '@/src/constants/dimensions.constants';
 import Spacer from '@/src/components/reusables/Spacer';
-import SettingsStore from '@/src/app/store2';
 import {useToast} from '@/src/components/toast-manager';
+import useMainStore from '@/src/app/store2';
+import {useSafeNavigation} from '@/src/hooks/useSafeNavigation';
 
 type Props = {};
 
@@ -24,7 +25,8 @@ const DashBoardScreen = (props: Props) => {
   const theme = useTheme();
   const toast = useToast();
   const [ip, setIp] = React.useState<string>('');
-  const {setUserIpDetails, userIpDetails} = SettingsStore();
+  const navigation = useSafeNavigation();
+  const {setUserIpDetails, userIpDetails} = useMainStore();
   const {
     data: ipData,
     error,
@@ -168,7 +170,13 @@ const DashBoardScreen = (props: Props) => {
 
         <Box width={'100%'}>
           <ImageSlider
-            onSelecteImage={selectedImage => console.log(selectedImage)}
+            onSelecteImage={selectedImage => {
+              setUserIpDetails({
+                ...userIpDetails,
+                image: selectedImage,
+              });
+              navigation.navigate('ProfileScreen');
+            }}
             images={[
               require('@/assets/slider/slider_one.png'),
 

@@ -28,6 +28,7 @@ const ProfileScreen = (props: Props) => {
         ma={5}
         pa={10}
         justify={'center'}
+        color={theme.primary}
         borderColor={theme.background}
         align={'center'}>
         <ThemedText weight="bold" color={theme.background}>

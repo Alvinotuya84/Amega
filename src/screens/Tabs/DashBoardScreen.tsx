@@ -169,7 +169,7 @@ const DashBoardScreen = (props: Props) => {
           </ThemedText>
         </Box>
 
-        <Box width={'100%'}>
+        <Box height={scale(230)} my={scale(20)} width={'100%'}>
           <ImageSlider
             onSelecteImage={selectedImage => {
               setUserIpDetails({
@@ -179,9 +179,12 @@ const DashBoardScreen = (props: Props) => {
               navigation.navigate('ProfileScreen');
             }}
             images={[
-              require('@/assets/slider/slider_one.png'),
-
-              require('@/assets/slider/slider_one.png'),
+              require('@/assets/slider/slider_two.jpg'),
+              require('@/assets/slider/slider_three.jpg'),
+              require('@/assets/slider/slider_four.jpg'),
+              require('@/assets/slider/slider_five.jpg'),
+              require('@/assets/slider/slider_six.jpg'),
+              require('@/assets/slider/slider_seven.jpg'),
               require('@/assets/slider/slider_one.png'),
             ]}
           />

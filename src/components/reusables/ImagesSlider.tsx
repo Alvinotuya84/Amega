@@ -81,19 +81,20 @@ const ImageSlider = ({
           style={[
             {
               width: itemWidth,
-              height: scale(200),
-              marginHorizontal: 10,
-              borderRadius: 20,
+              height: scale(170),
+              marginHorizontal: scale(10),
+              borderRadius: scale(20),
               overflow: 'hidden',
             },
             style,
           ]}>
           <ImageWrapper
+            resizeMode="cover"
             borderColor={theme.success}
-            borderWidth={selected === index ? 2 : 0}
+            borderWidth={selected === index ? 4 : 0}
             source={item}
             width={itemWidth}
-            height={scale(200)}
+            height={scale(170)}
           />
         </Animated.View>
       </ThemedButton>
@@ -111,8 +112,12 @@ const ImageSlider = ({
       onScroll={scrollHandler}
       scrollEventThrottle={scale(16)}
       keyExtractor={(item, index) => index.toString()}
+      ListFooterComponentStyle={{
+        marginVertical: scale(20),
+      }}
       contentContainerStyle={{
-        paddingHorizontal: sideSpacing, // Center the items in the middle of the screen
+        paddingHorizontal: sideSpacing,
+        // Center the items in the middle of the screen
       }}
       snapToInterval={itemWidth} // Ensure snapping to each item
       decelerationRate="fast" // Smooth scrolling

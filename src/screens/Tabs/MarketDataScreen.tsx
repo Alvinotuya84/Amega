@@ -84,13 +84,14 @@ const CryptoTrade = () => {
             });
 
             setTickerData(tickers);
-            setSelectedPair(curr => {
-              if (curr) {
-                return tickers.find(tick => tick.pair === curr.pair) || null;
-              } else {
-                return null;
-              }
-            });
+            setSelectedPair(
+              tickers
+                .filter(tick => tick.currency2 === selectedCurrencyOne)
+                .filter(tick =>
+                  tick.pair.toLowerCase().includes(searchQuery.toLowerCase()),
+                ) // Filter based on search query
+                .sort((a, b) => b.close - b.close)[0],
+            );
           } else {
           }
         }, 2000);
@@ -108,10 +109,26 @@ const CryptoTrade = () => {
       }
     };
   }, []);
+  const theme = useTheme();
+  const colorScheme = useColorScheme();
 
   return (
     <>
       <Page px={20} header={{title: 'Trade'}} gap={10}>
+        <Box block pa={20} radius={30} color={theme.surface}>
+          {selectedPair?.symbol && (
+            <WebView
+              source={{
+                html: generateWidgetHtml({
+                  backgroundColor: theme.background,
+                  theme: colorScheme,
+                  symbol: `BITSTAMP:${selectedPair!.symbol}`,
+                }),
+              }}
+              style={{height: 280, overflow: 'hidden', borderRadius: 30}}
+            />
+          )}
+        </Box>
         <ThemedTextInput
           placeholder="Search Coin"
           dense

@@ -1,79 +1,104 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+Mobile Application Project - README
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Overview
 
-## Step 1: Start the Metro Server
+This project is a mobile application developed using React Native. The application consists of three screens and a bottom navigation menu. It includes features such as IP detection, ISP provider lookup, image selection and display, and real-time market data display for a cryptocurrency ticker.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Features
 
-To start Metro, run the following command from the _root_ of your React Native project:
+IP Detection and ISP Provider Lookup
 
-```bash
-# using npm
-npm start
+On the first screen, the app detects the user's IP address and ISP provider upon opening.
+Users can enter any IP address in a form field to get the corresponding ISP provider and location.
+Utilizes the ipwho.is service for IP-based location and ISP information.
+Image Slider and Selection
 
-# OR using Yarn
-yarn start
-```
+Below the IP form field on the first screen, a slider displays multiple images stored locally or accessible from a specified location.
+Clicking on an image passes it to the second screen.
+Display Selected Image and IP Data
 
-## Step 2: Start your Application
+The second screen shows the IP data and the image selected from the first screen.
+Real-Time Market Data
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+The third screen displays real-time market data for a chosen cryptocurrency ticker (e.g., BTCUSDT).
+Utilizes the Binance WebSocket stream for real-time data updates.
+Technologies Used
 
-### For Android
+React Native (version >= 0.72)
+React Navigation (version >= 6)
+TypeScript
+WebSockets for real-time data
+Additional Libraries
 
-```bash
-# using npm
-npm run android
+Jest for writing component tests (optional, but recommended)
+Getting Started
 
-# OR using Yarn
-yarn android
-```
+Follow these instructions to get a copy of the project running on your local machine.
 
-### For iOS
+Prerequisites
+Node.js (LTS version recommended)
+npm or yarn
+Android Studio (for running on Android emulator or device)
+Installation
+Clone the repository:
 
-```bash
-# using npm
-npm run ios
+sh
+Copy code
+git clone <repository-link>
+cd <repository-directory>
+Install dependencies:
 
-# OR using Yarn
-yarn ios
-```
+sh
+Copy code
+npm install
+or
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+sh
+Copy code
+yarn install
+Run the application:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+sh
+Copy code
+npx react-native run-android
+Building APK
+Generate APK:
+sh
+Copy code
+cd android
+./gradlew assembleRelease
+The APK will be generated in android/app/build/outputs/apk/release/.
+Usage
 
-## Step 3: Modifying your App
+First Screen: Displays the user's IP address and ISP provider. Users can enter a different IP address to get related data. An image slider allows users to select an image.
+Second Screen: Shows the IP data and the selected image from the first screen.
+Third Screen: Displays real-time market data for a chosen cryptocurrency ticker.
+Configuration
 
-Now that you have successfully run the app, let's modify it.
+IP Lookup Service: The app uses ipwho.is for IP-based information. No additional configuration is required.
+Real-Time Data Source: The app uses Binance WebSocket stream for real-time market data. This is pre-configured and does not require a key.
+Testing
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+If tests are included, they can be run using:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+sh
+Copy code
+npm test
+or
 
-## Congratulations! :tada:
+sh
+Copy code
+yarn test
+Notes
 
-You've successfully run and modified your React Native App. :partying_face:
+The application is designed to work in portrait orientation only.
+Landscape orientation is disabled.
+If a different stack or architecture was used, the justification and details are provided in the repository.
+Links
 
-### Now what?
+Repository: GitHub Repository
+APK Build: Download APK
+Contact
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+For any questions or issues, please contact [Your Name] at [your-email@example.com].

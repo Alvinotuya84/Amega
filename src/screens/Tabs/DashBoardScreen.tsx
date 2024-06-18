@@ -11,7 +11,9 @@ import ImageSlider from '@/src/components/reusables/ImagesSlider';
 import {useQuery} from '@tanstack/react-query';
 import {fetchJson} from '@/src/utils/fetch.utils';
 import {IpLocationResponse} from '@/src/types/locationinfo';
-import ThemedButton from '@/src/components/reusables/ThemedButton';
+import ThemedButton, {
+  ThemedIconButton,
+} from '@/src/components/reusables/ThemedButton';
 import ThemedIcon from '@/src/components/reusables/ThemedIcon';
 import {sWidth} from '@/src/constants/dimensions.constants';
 import Spacer from '@/src/components/reusables/Spacer';
@@ -26,7 +28,12 @@ const DashBoardScreen = (props: Props) => {
   const toast = useToast();
   const [ip, setIp] = React.useState<string>('');
   const navigation = useSafeNavigation();
-  const {setUserIpDetails, userIpDetails} = useMainStore();
+  const {
+    setUserIpDetails,
+    userIpDetails,
+    theme: userTheme,
+    setTheme,
+  } = useMainStore();
   const {
     data: ipData,
     error,
@@ -51,7 +58,22 @@ const DashBoardScreen = (props: Props) => {
   });
   return (
     <Box flex={1}>
-      <Box width={'100%'}></Box>
+      <Box width={'100%'} px={scale(10)} color={theme.primary} align="flex-end">
+        <ThemedIconButton
+          radius={scale(20)}
+          height={scale(40)}
+          width={scale(40)}
+          icon={{
+            name: userTheme === 'light' ? 'moon' : 'sun',
+            color: theme.text,
+            size: 'xxl',
+            source: 'Feather',
+          }}
+          onPress={() => {
+            setTheme(userTheme === 'light' ? 'dark' : 'light');
+          }}
+        />
+      </Box>
       <LinearGradientBox
         colors={[theme.primary, theme.background]}
         start={{x: 0, y: 1}}

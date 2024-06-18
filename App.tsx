@@ -12,7 +12,7 @@ import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {Provider} from 'react-redux';
 import {ToastProvider} from './src/components/toast-manager';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-
+import CodePush from 'react-native-code-push';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -46,4 +46,4 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-export default App;
+export default CodePush(App);

@@ -1,20 +1,22 @@
-import { FetchResponseWrapper } from "@/types/utils.types";
-import userStore from "../stores/user.store";
-
+export interface FetchResponseWrapper<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
 export function unwrapErrors(
-  errorObject: Record<string, string[]>
-): { title: string; description: string }[] {
-  console.log("Unwrapping errors...");
+  errorObject: Record<string, string[]>,
+): {title: string; description: string}[] {
+  console.log('Unwrapping errors...');
   console.log(errorObject);
   const unwrappedErrors = [];
 
   for (const key in errorObject) {
-    console.log("Key", key);
-    console.log("error", errorObject[key]);
+    console.log('Key', key);
+    console.log('error', errorObject[key]);
     const title = key;
     const description = errorObject[key][0]; // Assuming the first element is the description
 
-    unwrappedErrors.push({ title, description });
+    unwrappedErrors.push({title, description});
   }
 
   console.log(unwrappedErrors);
@@ -33,13 +35,13 @@ export function objectToFormData(obj: any) {
 }
 
 export function logFormData(formData: FormData) {
-  console.log("Logging formdata...");
+  console.log('Logging formdata...');
   if (formData && formData.values()) {
     for (let value of formData.values()) {
       console.log(value);
     }
   } else {
-    console.log("Formdata is undefined");
+    console.log('Formdata is undefined');
   }
 }
 
@@ -57,25 +59,25 @@ export async function fetchJson<T>(
   url: string,
   options: FetchWrapperOptions = {
     excludeAuthHeader: false,
-  }
+  },
 ): Promise<FetchResponseWrapper<T>> {
-  const token = userStore.getState().getTokens()?.accessToken;
+  const token = null;
   const headers_ =
     options.excludeAuthHeader === false
       ? objectToHeaders({
           Authorization: `Bearer ${token}`,
-          "content-type": "application/json",
+          'content-type': 'application/json',
         })
       : new Headers();
   try {
     const response = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: headers_,
     });
     return await response.json();
   } catch (error) {
-    console.error("Fetch error:", error);
-    console.error("URL:", url);
+    console.error('Fetch error:', error);
+    console.error('URL:', url);
     throw error;
   }
 }
@@ -85,17 +87,17 @@ export async function postJson<T>(
   dataObject: Record<string, any>,
   options: FetchWrapperOptions = {
     excludeAuthHeader: false,
-  }
+  },
 ): Promise<FetchResponseWrapper<T>> {
-  const token = userStore.getState().tokens?.accessToken;
+  const token = null;
   const headers_ =
     options.excludeAuthHeader === false
       ? objectToHeaders({
           Authorization: `Bearer ${token}`,
-          "content-type": "application/json",
+          'content-type': 'application/json',
         })
       : new Headers({
-          "content-type": "application/json",
+          'content-type': 'application/json',
         });
 
   const body = JSON.stringify(dataObject);
@@ -104,13 +106,13 @@ export async function postJson<T>(
 
   try {
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: headers_,
       body,
     });
     return await response.json();
   } catch (error) {
-    console.error("Fetch error:", error);
+    console.error('Fetch error:', error);
     throw error;
   }
 }
@@ -120,11 +122,11 @@ export async function postFormData<T>(
   dataObject: Record<string, any>,
   options: FetchWrapperOptions = {
     excludeAuthHeader: false,
-  }
+  },
 ): Promise<FetchResponseWrapper<T>> {
   const formData = objectToFormData(dataObject);
 
-  const token = userStore.getState().tokens?.accessToken;
+  const token = null;
   const headers_ = options?.excludeAuthHeader
     ? new Headers()
     : objectToHeaders({
@@ -132,27 +134,27 @@ export async function postFormData<T>(
       });
   try {
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: formData,
       headers: headers_,
     });
     return await response.json();
   } catch (error) {
-    console.error("Fetch error:", error);
+    console.error('Fetch error:', error);
     throw error;
   }
 }
 
 export async function fetchJsonWithParams<T>(
   url: string,
-  params: { [key: string]: string | number | null | undefined },
+  params: {[key: string]: string | number | null | undefined},
   options: FetchWrapperOptions = {
     excludeAuthHeader: false,
-  }
+  },
 ): Promise<T> {
   const filteredParams = Object.entries(params)
     .filter(([, value]) => value !== null && value !== undefined)
-    .reduce<{ [key: string]: string }>((acc, [key, value]) => {
+    .reduce<{[key: string]: string}>((acc, [key, value]) => {
       acc[key] = value as string;
       return acc;
     }, {});
@@ -160,19 +162,19 @@ export async function fetchJsonWithParams<T>(
   const searchParams = new URLSearchParams(filteredParams).toString();
   const fullUrl = searchParams ? `${url}?${searchParams}` : url;
 
-  const token = userStore.getState().tokens?.accessToken;
+  const token = null;
   const headers_ =
     options?.excludeAuthHeader === false
       ? objectToHeaders({
           Authorization: `Bearer ${token}`,
-          "content-type": "application/json",
+          'content-type': 'application/json',
         })
       : new Headers({
-          "content-type": "application/json",
+          'content-type': 'application/json',
         });
   try {
     const response = await fetch(fullUrl, {
-      method: "GET",
+      method: 'GET',
       headers: headers_,
     });
 
@@ -182,8 +184,8 @@ export async function fetchJsonWithParams<T>(
 
     return await response.json();
   } catch (error) {
-    console.error("Fetch error:", error);
-    console.error("URL:", url);
+    console.error('Fetch error:', error);
+    console.error('URL:', url);
     throw error;
   }
 }

@@ -8,11 +8,29 @@ import ThemedText from '@/src/components/reusables/ThemedText';
 import {ThemedSearchInput} from '@/src/components/reusables/ThemedTextInput';
 import ImageWrapper from '@/src/components/reusables/ImageWrapper';
 import ImageSlider from '@/src/components/reusables/ImagesSlider';
+import {useQuery} from '@tanstack/react-query';
+import {fetchJson} from '@/src/utils/fetch.utils';
+import {IpLocationResponse} from '@/src/types/locationinfo';
+import ThemedButton from '@/src/components/reusables/ThemedButton';
+import ThemedIcon from '@/src/components/reusables/ThemedIcon';
+import {sWidth} from '@/src/constants/dimensions.constants';
 
 type Props = {};
 
 const DashBoardScreen = (props: Props) => {
   const theme = useTheme();
+
+  const {
+    data: ipData,
+    error,
+    isLoading: isIpLoading,
+  } = useQuery({
+    queryKey: ['ip'],
+    queryFn: async () => {
+      const response = await fetchJson<IpLocationResponse>('https://ipwho.is');
+      return response;
+    },
+  });
   return (
     <Box flex={1}>
       <LinearGradientBox
@@ -37,13 +55,44 @@ const DashBoardScreen = (props: Props) => {
           />
         </Box>
 
-        <ThemedSearchInput
-          wrapper={{
-            my: scale(40),
-            color: 'white',
-            borderColor: 'transparent',
-          }}
-        />
+        <Box my={scale(30)} align="center" width={'100%'} direction="row">
+          <ThemedSearchInput
+            wrapper={{
+              width: sWidth - scale(100),
+              color: 'white',
+              borderColor: 'transparent',
+            }}
+          />
+          <Box position="absolute" left={sWidth - scale(100)}>
+            <ThemedButton
+              icon={{
+                name: 'search',
+                color: theme.background,
+                size: 'xxs',
+                source: 'Feather',
+              }}
+              width={scale(60)}
+              height={scale(60)}
+              radius={scale(10)}
+              size={'lg'}
+            />
+          </Box>
+        </Box>
+
+        <Box
+          width={'100%'}
+          borderWidth={1}
+          direction="row"
+          borderColor={theme.background}
+          radius={scale(10)}
+          pa={scale(10)}
+          height={scale(70)}>
+          <Box>
+            <ThemedText color={theme.background} size={'sm'} weight="bold">
+              IP Address :
+            </ThemedText>
+          </Box>
+        </Box>
       </LinearGradientBox>
       <Box
         flex={1}
@@ -51,9 +100,11 @@ const DashBoardScreen = (props: Props) => {
         mt={scale(-40)}
         py={scale(20)}
         color={theme.background}>
-        <ThemedText color={theme.primary} size={'xxl'} weight="bold">
-          My Gallery
-        </ThemedText>
+        <Box px={scale(10)}>
+          <ThemedText color={theme.primary} size={'xxl'} weight="bold">
+            My Gallery
+          </ThemedText>
+        </Box>
 
         <Box width={'100%'}>
           <ImageSlider

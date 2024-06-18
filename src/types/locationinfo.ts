@@ -20,7 +20,7 @@ type Timezone = {
   current_time: string;
 };
 
-type IpLocationResponse = {
+export type IpLocationResponse = {
   'About Us': string;
   ip: string;
   success: boolean;

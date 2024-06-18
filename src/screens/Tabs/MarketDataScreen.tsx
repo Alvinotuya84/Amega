@@ -1,7 +1,7 @@
 import {FlashList} from '@shopify/flash-list';
 import {useQuery} from '@tanstack/react-query';
 import _ from 'lodash';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Alert, Image, ScrollView, useColorScheme} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import WebView from 'react-native-webview';
@@ -33,22 +33,24 @@ import {generateWidgetHtml} from '@/src/utils/webview.utils';
 
 const currency2 = ['USD', 'EUR', 'USDT', 'USDC', 'GDP', 'BTC', 'ETH'] as const;
 
-const CryptoTrade = () => {
+const MarketDataScreen = () => {
   const [selectedCurrencyOne, setSelectedCurrencyOne] = useState<string>('USD');
 
-  const [fetchingWalletsBalance, setFetchingWalletsBalance] = useState(false);
-  const [currencyWatchList, setCurrencyWatchList] = useState([]);
+  const [fetchingTradeInfo, setfetchingTradeInfo] = useState(false);
 
-  const [walletsBalance, setWalletsBalance] = useState<any[]>([]);
+  const [walletInfo, setwalletInfo] = useState<any[]>([]);
 
   const [tickerData, setTickerData] = useState<EnrichedTicker[]>([]);
 
   const [selectedPair, setSelectedPair] = useState<EnrichedTicker | null>(null);
+  const [initialSelectedPair, setInitialSelectedPair] =
+    useState<EnrichedTicker | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleSearchQueryChange = (query: string) => {
     setSearchQuery(query);
   };
+  const hasSetSelectedPair = useRef(false);
 
   useEffect(() => {
     const tickerSocket = new WebSocket('wss://ws.bitstamp.net');
@@ -66,7 +68,7 @@ const CryptoTrade = () => {
           const response = JSON.parse(event.data) as BitStampSocketResponse;
 
           let _acceptedCryptos: any[] = [];
-          setWalletsBalance(bal => {
+          setwalletInfo(bal => {
             _acceptedCryptos = bal;
             return bal;
           });
@@ -84,14 +86,17 @@ const CryptoTrade = () => {
             });
 
             setTickerData(tickers);
-            setSelectedPair(
-              tickers
-                .filter(tick => tick.currency2 === selectedCurrencyOne)
-                .filter(tick =>
-                  tick.pair.toLowerCase().includes(searchQuery.toLowerCase()),
-                ) // Filter based on search query
-                .sort((a, b) => b.close - b.close)[0],
-            );
+            if (!hasSetSelectedPair.current) {
+              setSelectedPair(
+                tickers
+                  .filter(tick => tick.currency2 === selectedCurrencyOne)
+                  .filter(tick =>
+                    tick.pair.toLowerCase().includes(searchQuery.toLowerCase()),
+                  ) // Filter based on search query
+                  .sort((a, b) => b.close - a.close)[0],
+              );
+              hasSetSelectedPair.current = true;
+            }
           } else {
           }
         }, 2000);
@@ -150,9 +155,10 @@ const CryptoTrade = () => {
             </Box>
           </ScrollView>
         </Box>
-        {(fetchingWalletsBalance || tickerData.length === 0) && (
+        {(fetchingTradeInfo || tickerData.length === 0) && (
           <ThemedActivityIndicator />
         )}
+        <ThemedText>Select any of the currency pairs below</ThemedText>
 
         <Box height={400} width={'100%'}>
           <FlashList
@@ -400,7 +406,7 @@ function CurrencyTrade({
           {/* <OrderHistory />
           <OpenOrders /> */}
         </ScrollView>
-        <ThemedCard direction="row" pb={insets.bottom}>
+        {/* <ThemedCard direction="row" pb={insets.bottom}>
           <ThemedButton
             label={'Buy'}
             size="sm"
@@ -415,7 +421,7 @@ function CurrencyTrade({
             flex={0.5}
             onPress={() => setShowSellModal(true)}
           />
-        </ThemedCard>
+        </ThemedCard> */}
       </Box>
     </>
   );
@@ -630,4 +636,4 @@ const SellAsks = ({asks}: Props) => {
   );
 };
 
-export default CryptoTrade;
+export default MarketDataScreen;

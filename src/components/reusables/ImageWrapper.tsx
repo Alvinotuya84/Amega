@@ -26,12 +26,16 @@ type Props = {
   mr?: DimensionValue;
   radius?: number | undefined;
   alignSelf?: FlexStyle['alignSelf'];
+  borderColor?: string;
+  borderWidth?: number;
 };
 
 const ImageWrapper = ({
   source,
   height,
   width,
+  borderColor = 'transparent',
+  borderWidth = 0,
 
   resizeMode = 'contain',
   p = 0,
@@ -55,8 +59,11 @@ const ImageWrapper = ({
 }: Props) => {
   return (
     <FastImage
+      {...viewProps}
       source={source}
       style={{
+        borderWidth,
+        borderColor,
         width: width,
         height: height,
         padding: p,

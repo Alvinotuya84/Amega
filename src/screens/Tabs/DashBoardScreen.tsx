@@ -7,6 +7,7 @@ import {useTheme} from '@/src/hooks/useTheme.hook';
 import ThemedText from '@/src/components/reusables/ThemedText';
 import {ThemedSearchInput} from '@/src/components/reusables/ThemedTextInput';
 import ImageWrapper from '@/src/components/reusables/ImageWrapper';
+import ImageSlider from '@/src/components/reusables/ImagesSlider';
 
 type Props = {};
 
@@ -53,6 +54,17 @@ const DashBoardScreen = (props: Props) => {
         <ThemedText color={theme.primary} size={'xxl'} weight="bold">
           My Gallery
         </ThemedText>
+
+        <Box width={'100%'}>
+          <ImageSlider
+            images={[
+              require('@/assets/slider/slider_one.png'),
+
+              require('@/assets/slider/slider_one.png'),
+              require('@/assets/slider/slider_one.png'),
+            ]}
+          />
+        </Box>
       </Box>
     </Box>
   );

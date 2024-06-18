@@ -40,7 +40,6 @@ const SplashScreen = ({onAnimationEnd}: Props) => {
           duration: 150,
           delay: 350,
         }).start(() => {
-          Alert.alert('j;lj;');
           onAnimationEnd();
         });
       });

@@ -32,13 +32,13 @@ const App = () => {
             <View style={styles.container}>
               <Navigation />
 
-              {/* {splashScreenVisible && (
-            <SplashScreen
-              onAnimationEnd={() => {
-                setSplashScreenVisible(false);
-              }}
-            />
-          )} */}
+              {splashScreenVisible && (
+                <SplashScreen
+                  onAnimationEnd={() => {
+                    setSplashScreenVisible(false);
+                  }}
+                />
+              )}
             </View>
           </ToastProvider>
         </GestureHandlerRootView>

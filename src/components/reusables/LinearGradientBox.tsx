@@ -10,6 +10,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
+import Box from './Box';
 
 export default function LinearGradientBox({
   viewProps,
@@ -58,6 +59,9 @@ export default function LinearGradientBox({
   animated = false,
   opacity = 1,
 }: BoxProps) {
+  const Children = () => {
+    return <Box>{children}</Box>;
+  };
   return (
     <LinearGradient
       start={start}
@@ -109,7 +113,7 @@ export default function LinearGradientBox({
         },
       ]}
       {...viewProps}>
-      {children}
+      <Children />
     </LinearGradient>
   );
 }

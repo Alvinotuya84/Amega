@@ -1,8 +1,4 @@
-export interface FetchResponseWrapper<T> {
-  success: boolean;
-  message: string;
-  data: T;
-}
+export interface FetchResponseWrapper<T> {}
 export function unwrapErrors(
   errorObject: Record<string, string[]>,
 ): {title: string; description: string}[] {
@@ -60,7 +56,7 @@ export async function fetchJson<T>(
   options: FetchWrapperOptions = {
     excludeAuthHeader: false,
   },
-): Promise<FetchResponseWrapper<T>> {
+): Promise<T> {
   const token = null;
   const headers_ =
     options.excludeAuthHeader === false

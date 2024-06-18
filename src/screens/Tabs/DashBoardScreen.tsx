@@ -34,10 +34,10 @@ const DashBoardScreen = (props: Props) => {
   return (
     <Box flex={1}>
       <LinearGradientBox
-        colors={[theme.primary, '#e1e2e3']}
-        start={{x: 1, y: 0}}
-        end={{x: 0, y: 1.5}}
-        height={scale(400)}
+        colors={[theme.primary, theme.background]}
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 0}}
+        height={scale(170)}
         px={scale(20)}
         py={scale(50)}
         color={theme.primary}>
@@ -54,8 +54,9 @@ const DashBoardScreen = (props: Props) => {
             width={scale(100)}
           />
         </Box>
-
-        <Box my={scale(30)} align="center" width={'100%'} direction="row">
+      </LinearGradientBox>
+      <Box px={scale(20)} height={scale(200)} color={theme.primary}>
+        <Box mb={scale(30)} align="center" width={'100%'} direction="row">
           <ThemedSearchInput
             wrapper={{
               width: sWidth - scale(100),
@@ -63,41 +64,69 @@ const DashBoardScreen = (props: Props) => {
               borderColor: 'transparent',
             }}
           />
-          <Box position="absolute" left={sWidth - scale(100)}>
-            <ThemedButton
-              icon={{
-                name: 'search',
-                color: theme.background,
-                size: 'xxs',
-                source: 'Feather',
-              }}
-              width={scale(60)}
-              height={scale(60)}
-              radius={scale(10)}
-              size={'lg'}
-            />
-          </Box>
+          <ThemedButton
+            color={theme.background}
+            icon={{
+              name: 'search',
+              color: theme.primary,
+              size: 'xxs',
+              source: 'Feather',
+            }}
+            onPress={() => console.log('Search')}
+            width={scale(60)}
+            height={scale(60)}
+            radius={scale(10)}
+            size={'lg'}
+          />
         </Box>
 
         <Box
           width={'100%'}
           borderWidth={1}
           direction="row"
+          justify="space-between"
           borderColor={theme.background}
           radius={scale(10)}
           pa={scale(10)}
           height={scale(70)}>
-          <Box>
+          <Box height={'100%'} justify="space-between">
             <ThemedText color={theme.background} size={'sm'} weight="bold">
               IP Address :
             </ThemedText>
+            <ThemedText color={theme.background} size={'xs'} weight="bold">
+              {ipData?.ip}
+            </ThemedText>
+          </Box>
+          <Box height={'100%'} justify="space-between">
+            <ThemedText color={theme.background} size={'sm'} weight="bold">
+              IP Address :
+            </ThemedText>
+            <ThemedText color={theme.background} size={'xs'} weight="bold">
+              {ipData?.ip}
+            </ThemedText>
+          </Box>
+          <Box height={'100%'} justify="space-between">
+            <ThemedText color={theme.background} size={'sm'} weight="bold">
+              IP Address :
+            </ThemedText>
+            <ThemedText color={theme.background} size={'xs'} weight="bold">
+              {ipData?.ip}
+            </ThemedText>
+          </Box>
+          <Box height={'100%'} justify="space-between">
+            <ThemedText color={theme.background} size={'sm'} weight="bold">
+              IP Address :
+            </ThemedText>
+            <ThemedText color={theme.background} size={'xs'} weight="bold">
+              {ipData?.ip}
+            </ThemedText>
           </Box>
         </Box>
-      </LinearGradientBox>
+      </Box>
       <Box
         flex={1}
         radiusTop={scale(20)}
-        mt={scale(-40)}
+        mt={scale(-10)}
         py={scale(20)}
         color={theme.background}>
         <Box px={scale(10)}>

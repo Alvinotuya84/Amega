@@ -20,7 +20,7 @@ export const Colors = {
   dark: {
     primary: '#1C59CD',
     border: 'rgb(39, 39, 41)',
-    surface: '#F6F7FB',
+    surface: '#1C1C1E',
 
     text: '#fff',
     danger: '#FF0000',

@@ -14,6 +14,7 @@ import ImageWrapper from './ImageWrapper';
 import {sWidth} from '@/src/constants/dimensions.constants';
 import {useTheme} from '@/src/hooks/useTheme.hook';
 import {scale} from '@/src/constants/scaler.constants';
+import {useToast} from '../toast-manager';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -61,7 +62,7 @@ const ImageSlider = ({
         opacity,
       };
     });
-
+    const toast = useToast();
     return (
       <ThemedButton
         type="text"
@@ -72,6 +73,9 @@ const ImageSlider = ({
             animated: true,
           });
           onSelecteImage(item);
+          toast.showToast({
+            title: 'Image Selected',
+          });
         }}>
         <Animated.View
           style={[

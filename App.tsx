@@ -10,6 +10,8 @@ import {
 import {useEffect, useState} from 'react';
 import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {Provider} from 'react-redux';
+import {ToastProvider} from './src/components/toast-manager';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,17 +27,21 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <View style={styles.container}>
-          <Navigation />
+        <GestureHandlerRootView>
+          <ToastProvider>
+            <View style={styles.container}>
+              <Navigation />
 
-          {/* {splashScreenVisible && (
+              {/* {splashScreenVisible && (
             <SplashScreen
               onAnimationEnd={() => {
                 setSplashScreenVisible(false);
               }}
             />
           )} */}
-        </View>
+            </View>
+          </ToastProvider>
+        </GestureHandlerRootView>
       </Provider>
     </QueryClientProvider>
   );

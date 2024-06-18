@@ -13,16 +13,23 @@ import Box from './Box';
 import ImageWrapper from './ImageWrapper';
 import {sWidth} from '@/src/constants/dimensions.constants';
 import {useTheme} from '@/src/hooks/useTheme.hook';
+import {scale} from '@/src/constants/scaler.constants';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const ImageSlider = ({images}: {images: Source[]}) => {
+const ImageSlider = ({
+  images,
+  onSelecteImage,
+}: {
+  images: Source[];
+  onSelecteImage: (selectedImage: Source) => void;
+}) => {
   const [selected, setSelected] = useState(0);
   const theme = useTheme();
   const scrollX = useSharedValue(0);
   const scrollRef = useRef(null);
   const itemWidth = screenWidth * 0.6; // Adjust width to fit 3 items in view
-  const sideSpacing = (screenWidth - itemWidth) / 2;
+  const sideSpacing = (screenWidth - itemWidth) / 3.5;
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
@@ -64,13 +71,14 @@ const ImageSlider = ({images}: {images: Source[]}) => {
             offset: index * itemWidth,
             animated: true,
           });
+          onSelecteImage(item);
         }}>
         <Animated.View
           style={[
             {
               width: itemWidth,
-              height: 200,
-              marginHorizontal: 10, // Adjust spacing between items
+              height: scale(200),
+              marginHorizontal: 10,
               borderRadius: 20,
               overflow: 'hidden',
             },
@@ -81,7 +89,7 @@ const ImageSlider = ({images}: {images: Source[]}) => {
             borderWidth={selected === index ? 2 : 0}
             source={item}
             width={itemWidth}
-            height={200}
+            height={scale(200)}
           />
         </Animated.View>
       </ThemedButton>
@@ -97,7 +105,7 @@ const ImageSlider = ({images}: {images: Source[]}) => {
       showsHorizontalScrollIndicator={false}
       pagingEnabled={false} // Disable default paging
       onScroll={scrollHandler}
-      scrollEventThrottle={16}
+      scrollEventThrottle={scale(16)}
       keyExtractor={(item, index) => index.toString()}
       contentContainerStyle={{
         paddingHorizontal: sideSpacing, // Center the items in the middle of the screen

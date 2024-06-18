@@ -49,7 +49,7 @@ const DashBoardScreen = (props: Props) => {
         flex={1}
         radiusTop={scale(20)}
         mt={scale(-40)}
-        pa={scale(20)}
+        py={scale(20)}
         color={theme.background}>
         <ThemedText color={theme.primary} size={'xxl'} weight="bold">
           My Gallery
@@ -57,6 +57,7 @@ const DashBoardScreen = (props: Props) => {
 
         <Box width={'100%'}>
           <ImageSlider
+            onSelecteImage={selectedImage => console.log(selectedImage)}
             images={[
               require('@/assets/slider/slider_one.png'),
 

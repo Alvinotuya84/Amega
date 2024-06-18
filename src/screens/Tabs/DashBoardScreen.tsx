@@ -14,6 +14,7 @@ import {IpLocationResponse} from '@/src/types/locationinfo';
 import ThemedButton from '@/src/components/reusables/ThemedButton';
 import ThemedIcon from '@/src/components/reusables/ThemedIcon';
 import {sWidth} from '@/src/constants/dimensions.constants';
+import Spacer from '@/src/components/reusables/Spacer';
 
 type Props = {};
 
@@ -64,6 +65,7 @@ const DashBoardScreen = (props: Props) => {
               borderColor: 'transparent',
             }}
           />
+          <Spacer width={scale(10)} />
           <ThemedButton
             color={theme.background}
             icon={{

@@ -17,13 +17,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Box, {BoxProps} from './Box';
 import Spacer from './Spacer';
 import ThemedText from './ThemedText';
-import {ThemedIconButton} from './ThemedButton';
+import {ThemedIconButton, ThemedToggleButton} from './ThemedButton';
 import ThemedButton from './ThemedButton';
 import ThemedIcon from './ThemedIcon';
 import {useTheme} from '@/src/hooks/useTheme.hook';
 import {scale} from '@/src/constants/scaler.constants';
 import {useSafeNavigation} from '@/src/hooks/useSafeNavigation';
 import {useNavigation} from '@react-navigation/native';
+import useMainStore from '@/src/app/store2';
 
 export function BackButton() {
   const platform = Platform.OS;
@@ -50,6 +51,7 @@ const Page = forwardRef(
     useEffect(() => {
       console.log('Page Rendered: ', props.header?.title);
     }, []);
+    const {theme: userTheme, setTheme} = useMainStore();
 
     const scrollRef = React.useRef<ScrollView>(null);
 
@@ -106,17 +108,26 @@ const Page = forwardRef(
                     </ThemedText>
                   </Box>
 
-                  {/* <Box align="flex-end">
+                  <Box align="flex-end">
                     {props.header?.rightComponent ? (
                       props.header?.rightComponent
                     ) : (
                       <ThemedIconButton
-                        icon={{name: 'menu', source: 'AntDesign'}}
-                        type={'primary'}
-                        onPress={() => {}}
+                        radius={20}
+                        height={40}
+                        width={40}
+                        icon={{
+                          name: userTheme === 'light' ? 'sun' : 'moon',
+                          color: theme.text,
+                          size: 'xxl',
+                          source: 'Feather',
+                        }}
+                        onPress={() => {
+                          setTheme(userTheme === 'light' ? 'dark' : 'light');
+                        }}
                       />
                     )}
-                  </Box> */}
+                  </Box>
                 </Box>
               )}
             </>

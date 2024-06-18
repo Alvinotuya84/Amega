@@ -51,6 +51,7 @@ const DashBoardScreen = (props: Props) => {
   });
   return (
     <Box flex={1}>
+      <Box width={'100%'}></Box>
       <LinearGradientBox
         colors={[theme.primary, theme.background]}
         start={{x: 0, y: 1}}
@@ -80,7 +81,7 @@ const DashBoardScreen = (props: Props) => {
             value={ip}
             wrapper={{
               width: sWidth - scale(100),
-              color: 'white',
+              color: theme.background,
               borderColor: 'transparent',
             }}
           />

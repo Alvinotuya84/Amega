@@ -36,7 +36,7 @@ const currency2 = ['USD', 'EUR', 'USDT', 'USDC', 'GDP', 'BTC', 'ETH'] as const;
 const MarketDataScreen = () => {
   const [selectedCurrencyOne, setSelectedCurrencyOne] = useState<string>('USD');
 
-  const [fetchingTradeInfo, setfetchingTradeInfo] = useState(false);
+  const [fethcingMarketInfo, setfethcingMarketInfo] = useState(false);
 
   const [walletInfo, setwalletInfo] = useState<any[]>([]);
 
@@ -155,7 +155,7 @@ const MarketDataScreen = () => {
             </Box>
           </ScrollView>
         </Box>
-        {(fetchingTradeInfo || tickerData.length === 0) && (
+        {(fethcingMarketInfo || tickerData.length === 0) && (
           <ThemedActivityIndicator />
         )}
         <ThemedText>Select any of the currency pairs below</ThemedText>

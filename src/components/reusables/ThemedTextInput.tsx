@@ -190,7 +190,7 @@ export function ThemedSearchInput(props: ThemedSearchInputProps) {
 
   return (
     <ThemedTextInput
-      placeholder="Search"
+      placeholder="Search..."
       value={value}
       {...props}
       onChangeText={value => {

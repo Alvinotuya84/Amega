@@ -1,16 +1,17 @@
+import {LinearGradient} from 'react-native-linear-gradient';
 import {AnimatePresence, MotiView} from 'moti';
 import React, {ReactNode, useEffect, useState} from 'react';
 import {
   DimensionValue,
   FlexStyle,
-  Platform,
   View,
   ViewProps,
   ViewStyle,
+  StyleSheet,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-export default function Box({
+export default function LinearGradientBox({
   viewProps,
   style,
   children,
@@ -21,11 +22,11 @@ export default function Box({
   align,
   justify,
   borderColor = 'transparent',
-  borderTopWidth,
-  borderBottomWidth,
-  borderRightWidth,
-  borderLeftWidth,
   borderWidth = 0,
+  borderBottomWidth = 0,
+  borderLeftWidth = 0,
+  borderRightWidth = 0,
+  borderTopWidth = 0,
   px,
   py,
   pa,
@@ -43,74 +44,73 @@ export default function Box({
   width,
   height = 'auto',
   color = 'transparent',
+  colors = ['#000000', '#fff'],
   radius = 0,
   radiusTop,
   radiusBottom,
   flex,
   wrap,
   position,
-  top,
-  bottom,
-  left,
-  right,
+  start,
+  end,
+  locations,
   overflow,
   animated = false,
   opacity = 1,
 }: BoxProps) {
   return (
-    <View
-      style={{
-        flexDirection: direction,
-        flexWrap: wrap,
-        alignSelf,
-        gap,
-        alignItems: align,
-        justifyContent: justify,
-        width: width ? width : block ? '100%' : 'auto',
-        height: height,
-        padding: pa,
-        paddingHorizontal: px,
-        paddingVertical: py,
-        paddingLeft: pl,
-        paddingRight: pr,
-        paddingTop: pt,
-        paddingBottom: pb,
-        margin: ma,
-        marginHorizontal: ma ? ma : mx,
-        marginVertical: ma ? ma : my,
-        marginLeft: ml,
-        marginRight: mr,
-        marginTop: mt,
-        marginBottom: mb,
-        backgroundColor: color,
-        borderRadius: radius,
-        borderColor,
-        borderWidth,
-
-        borderLeftWidth,
-        borderRightWidth,
-        borderTopWidth,
-        borderBottomWidth,
-
-        maxWidth: '100%',
-        opacity,
-        flex,
-        position,
-        borderTopLeftRadius: radiusTop || radius,
-        borderTopRightRadius: radiusTop || radius,
-        borderBottomLeftRadius: radiusBottom || radius,
-        borderBottomRightRadius: radiusBottom || radius,
-        top,
-        bottom,
-        left,
-        right,
-
-        overflow,
-        ...style,
-      }}
+    <LinearGradient
+      start={start}
+      end={end}
+      pointerEvents="none"
+      colors={colors}
+      style={[
+        {
+          flexDirection: direction,
+          flexWrap: wrap,
+          alignSelf,
+          gap,
+          alignItems: align,
+          justifyContent: justify,
+          width: width ? width : block ? '100%' : 'auto',
+          height: height,
+          padding: pa,
+          paddingHorizontal: px,
+          paddingVertical: py,
+          paddingLeft: pl,
+          paddingRight: pr,
+          paddingTop: pt,
+          paddingBottom: pb,
+          margin: ma,
+          marginHorizontal: ma ? ma : mx,
+          marginVertical: ma ? ma : my,
+          marginLeft: ml,
+          marginRight: mr,
+          marginTop: mt,
+          marginBottom: mb,
+          backgroundColor: color,
+          borderRadius: radius,
+          borderColor,
+          borderWidth,
+          maxWidth: '100%',
+          opacity,
+          flex,
+          position,
+          borderTopLeftRadius: radiusTop || radius,
+          borderTopRightRadius: radiusTop || radius,
+          borderBottomLeftRadius: radiusBottom || radius,
+          borderBottomRightRadius: radiusBottom || radius,
+          borderLeftWidth,
+          borderRightWidth,
+          borderTopWidth,
+          borderBottomWidth,
+          overflow,
+          ...style,
+        },
+      ]}
       {...viewProps}>
       {children}
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -125,6 +125,10 @@ export function AnimatedBox({
   justify,
   borderColor = 'transparent',
   borderWidth = 0,
+  borderBottomWidth = 0,
+  borderLeftWidth = 0,
+  borderRightWidth = 0,
+  borderTopWidth = 0,
   px,
   py,
   pa,
@@ -149,7 +153,6 @@ export function AnimatedBox({
   wrap,
   position,
   overflow,
-  zIndex,
   opacity = 1,
 }: AnimatedBoxProps) {
   return (
@@ -185,11 +188,14 @@ export function AnimatedBox({
           opacity,
           flex,
           position,
-          zIndex,
           borderTopLeftRadius: radiusTop || radius,
           borderTopRightRadius: radiusTop || radius,
           borderBottomLeftRadius: radiusBottom || radius,
           borderBottomRightRadius: radiusBottom || radius,
+          borderBottomWidth: borderBottomWidth || borderWidth,
+          borderLeftWidth: borderLeftWidth || borderWidth,
+          borderRightWidth: borderRightWidth || borderWidth,
+          borderTopWidth: borderTopWidth || borderWidth,
           overflow,
         },
         style,
@@ -204,8 +210,6 @@ export function AnimateOnAppear({
   animation = 'slideInRight',
   visible,
   viewStyle,
-  duration,
-  initialScale,
   children,
 }: {
   animation?:
@@ -216,17 +220,14 @@ export function AnimateOnAppear({
     | 'slideInUp'
     | 'slideInDown'
     | 'fadeInUp'
-    | 'fadeInDown'
-    | 'fadeIn';
+    | 'fadeInDown';
   visible: boolean;
   viewStyle?: ViewStyle;
   children: ReactNode;
-  duration?: number;
-  initialScale?: number;
 }) {
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
-  const [opacity, setOpacity] = useState(0.8);
+  const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
     switch (animation) {
@@ -260,10 +261,6 @@ export function AnimateOnAppear({
         setOffsetY(100);
         setOpacity(0);
         break;
-      case 'fadeIn':
-        setOffsetX(0);
-        setOffsetY(0);
-        setOpacity(1);
       default:
         break;
     }
@@ -277,7 +274,7 @@ export function AnimateOnAppear({
             transform: [
               {translateX: offsetX},
               {translateY: offsetY},
-              {scale: initialScale || 0.8},
+              {scale: 1},
             ],
             opacity: opacity,
           }}
@@ -285,7 +282,7 @@ export function AnimateOnAppear({
             transform: [{translateY: 0}, {translateX: 0}, {scale: 1}],
             opacity: 1,
           }}
-          transition={{type: 'timing', duration: duration || 200}}
+          transition={{type: 'timing', duration: 200}}
           style={{...viewStyle}}>
           {children}
         </MotiView>
@@ -293,51 +290,10 @@ export function AnimateOnAppear({
     </AnimatePresence>
   );
 }
-export function ShadowBox({
-  shadowColor = '#000',
-  shadowOpacity = 1,
-  shadowOffset = {width: 0, height: 4},
-  shadowRadius = 6,
-  elevation = 4,
-  ...rest
-}: ShadowBoxProps) {
-  const shadowStyles = Platform.select({
-    ios: {
-      shadowColor,
-      shadowOpacity,
-      shadowOffset,
-      shadowRadius,
-    },
-    android: {
-      elevation,
-    },
-  });
 
-  return (
-    <Box
-      style={{
-        ...shadowStyles,
-      }}
-      {...rest}
-    />
-  );
-}
-interface ShadowBoxProps extends BoxProps {
-  shadowColor?: string;
-  shadowOpacity?: number;
-  shadowOffset?: {width: number; height: number};
-  shadowRadius?: number;
-  elevation?: number;
-}
-interface ShadowBoxProps extends BoxProps {
-  shadowColor?: string;
-  shadowOpacity?: number;
-  shadowOffset?: {width: number; height: number};
-  shadowRadius?: number;
-  elevation?: number;
-}
 export interface BoxProps {
   children?: ReactNode;
+  colors?: string[];
   block?: boolean;
   direction?: FlexStyle['flexDirection'];
   gap?: FlexStyle['gap'];
@@ -358,15 +314,11 @@ export interface BoxProps {
   mb?: DimensionValue;
   ml?: DimensionValue;
   mr?: DimensionValue;
-  borderTopWidth?: ViewStyle['borderTopWidth'];
-  borderTopColor?: ViewStyle['borderTopColor'];
-  borderRightWidth?: ViewStyle['borderRightWidth'];
-  borderRightColor?: ViewStyle['borderRightColor'];
-  borderBottomWidth?: ViewStyle['borderBottomWidth'];
-  borderBottomColor?: ViewStyle['borderBottomColor'];
-  borderLeftWidth?: ViewStyle['borderLeftWidth'];
-  borderLeftColor?: ViewStyle['borderLeftColor'];
   borderWidth?: ViewStyle['borderWidth'];
+  borderLeftWidth?: ViewStyle['borderLeftWidth'];
+  borderRightWidth?: ViewStyle['borderRightWidth'];
+  borderTopWidth?: ViewStyle['borderTopWidth'];
+  borderBottomWidth?: ViewStyle['borderBottomWidth'];
   borderColor?: ViewStyle['borderColor'];
   width?: ViewStyle['width'];
   height?: ViewStyle['height'];
@@ -381,12 +333,11 @@ export interface BoxProps {
   animated?: boolean;
   overflow?: ViewStyle['overflow'];
   viewProps?: Omit<ViewProps, 'style'>;
-  top?: ViewStyle['top'];
-  bottom?: ViewStyle['bottom'];
-  left?: ViewStyle['left'];
-  right?: ViewStyle['right'];
-  zIndex?: ViewStyle['zIndex'];
   style?: ViewStyle;
+  start?: {x: number; y: number};
+  locations?: number[] | null;
+
+  end?: {x: number; y: number};
 }
 
 export interface AnimatedBoxProps extends Omit<BoxProps, 'style'> {

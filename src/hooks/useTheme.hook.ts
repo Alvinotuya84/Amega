@@ -1,4 +1,4 @@
-import SettingsStore from '../app/theme';
+import SettingsStore from '../app/store2';
 import {useColorScheme} from 'react-native';
 import {Colors} from '../configs/colors.configs';
 export function useThemeColor(

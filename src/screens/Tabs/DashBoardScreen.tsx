@@ -20,15 +20,19 @@ type Props = {};
 
 const DashBoardScreen = (props: Props) => {
   const theme = useTheme();
+  const [ip, setIp] = React.useState<string>('');
 
   const {
     data: ipData,
     error,
     isLoading: isIpLoading,
+    refetch,
   } = useQuery({
     queryKey: ['ip'],
     queryFn: async () => {
-      const response = await fetchJson<IpLocationResponse>('https://ipwho.is');
+      const response = await fetchJson<IpLocationResponse>(
+        `https://ipwho.is/${ip}`,
+      );
       return response;
     },
   });
@@ -59,6 +63,8 @@ const DashBoardScreen = (props: Props) => {
       <Box px={scale(20)} height={scale(200)} color={theme.primary}>
         <Box mb={scale(30)} align="center" width={'100%'} direction="row">
           <ThemedSearchInput
+            onChangeText={setIp}
+            value={ip}
             wrapper={{
               width: sWidth - scale(100),
               color: 'white',
@@ -74,7 +80,8 @@ const DashBoardScreen = (props: Props) => {
               size: 'xxs',
               source: 'Feather',
             }}
-            onPress={() => console.log('Search')}
+            loading={isIpLoading}
+            onPress={() => refetch()}
             width={scale(60)}
             height={scale(60)}
             radius={scale(10)}
@@ -95,32 +102,34 @@ const DashBoardScreen = (props: Props) => {
             <ThemedText color={theme.background} size={'sm'} weight="bold">
               IP Address :
             </ThemedText>
-            <ThemedText color={theme.background} size={'xs'} weight="bold">
+            <ThemedText color={theme.background} size={'xs'}>
               {ipData?.ip}
             </ThemedText>
           </Box>
           <Box height={'100%'} justify="space-between">
             <ThemedText color={theme.background} size={'sm'} weight="bold">
-              IP Address :
+              Location :
             </ThemedText>
-            <ThemedText color={theme.background} size={'xs'} weight="bold">
-              {ipData?.ip}
-            </ThemedText>
-          </Box>
-          <Box height={'100%'} justify="space-between">
-            <ThemedText color={theme.background} size={'sm'} weight="bold">
-              IP Address :
-            </ThemedText>
-            <ThemedText color={theme.background} size={'xs'} weight="bold">
-              {ipData?.ip}
+            <ThemedText color={theme.background} size={'xs'}>
+              {ipData?.city}
+              {', '}
+              {ipData?.country}
             </ThemedText>
           </Box>
           <Box height={'100%'} justify="space-between">
             <ThemedText color={theme.background} size={'sm'} weight="bold">
-              IP Address :
+              Timezone :
             </ThemedText>
-            <ThemedText color={theme.background} size={'xs'} weight="bold">
-              {ipData?.ip}
+            <ThemedText color={theme.background} size={'xs'}>
+              {ipData?.timezone.abbr} +{ipData?.timezone.utc}
+            </ThemedText>
+          </Box>
+          <Box height={'100%'} justify="space-between">
+            <ThemedText color={theme.background} size={'sm'} weight="bold">
+              ISP :
+            </ThemedText>
+            <ThemedText color={theme.background} size={'xxxs'}>
+              {ipData?.connection.org}
             </ThemedText>
           </Box>
         </Box>

@@ -10,9 +10,10 @@ export const NavigationRoutes = {
     ConnectSocialScreen: 'ConnectSocialScreen',
     ForgotPasswordScreen: 'ForgotPasswordScreen',
   },
-  Home: {
-    Dashboard: 'Dashboard',
-    Profile: 'Profile',
+  HomeTabs: {
+    DashboardScreen: 'DashboardScreen',
+    ProfileScreen: 'ProfileScreen',
+    MarketDataScreen: 'MarketDataScreen',
   },
 };
 type AuthStackParamList = {
@@ -20,7 +21,7 @@ type AuthStackParamList = {
 };
 
 type HomeStackParamList = {
-  [K in keyof typeof NavigationRoutes.Home]: undefined;
+  [K in keyof typeof NavigationRoutes.HomeTabs]: undefined;
 };
 
 export type RootStackParamList = AuthStackParamList & HomeStackParamList;

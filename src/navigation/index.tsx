@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AuthStack from './AuthStack';
+import TabStack from './TabStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,7 @@ const Navigation = () => {
         ) : null ? (
           <Stack.Screen name="App" component={AppStack} />
         ) : ( */}
-        <Stack.Screen name="Auth" component={AuthStack} />
+        <Stack.Screen name="Tabs" component={TabStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

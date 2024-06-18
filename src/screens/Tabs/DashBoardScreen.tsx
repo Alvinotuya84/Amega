@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import React from 'react';
 import Box from '@/src/components/reusables/Box';
 import LinearGradientBox from '@/src/components/reusables/LinearGradientBox';
@@ -15,13 +15,16 @@ import ThemedButton from '@/src/components/reusables/ThemedButton';
 import ThemedIcon from '@/src/components/reusables/ThemedIcon';
 import {sWidth} from '@/src/constants/dimensions.constants';
 import Spacer from '@/src/components/reusables/Spacer';
+import SettingsStore from '@/src/app/store2';
+import {useToast} from '@/src/components/toast-manager';
 
 type Props = {};
 
 const DashBoardScreen = (props: Props) => {
   const theme = useTheme();
+  const toast = useToast();
   const [ip, setIp] = React.useState<string>('');
-
+  const {setUserIpDetails, userIpDetails} = SettingsStore();
   const {
     data: ipData,
     error,
@@ -33,6 +36,14 @@ const DashBoardScreen = (props: Props) => {
       const response = await fetchJson<IpLocationResponse>(
         `https://ipwho.is/${ip}`,
       );
+      toast.showToast({
+        type: 'success',
+        title: 'IP Address fetched successfully',
+      });
+      setUserIpDetails({
+        ...response,
+        image: require('@/assets/slider/slider_one.png'),
+      });
       return response;
     },
   });
@@ -81,7 +92,16 @@ const DashBoardScreen = (props: Props) => {
               source: 'Feather',
             }}
             loading={isIpLoading}
-            onPress={() => refetch()}
+            onPress={() => {
+              if (ip.length <= 0) {
+                toast.showToast({
+                  type: 'error',
+                  title: 'Please enter an IP Address',
+                });
+                return false;
+              }
+              refetch();
+            }}
             width={scale(60)}
             height={scale(60)}
             radius={scale(10)}

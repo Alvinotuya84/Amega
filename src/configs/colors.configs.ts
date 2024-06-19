@@ -10,6 +10,7 @@ export const Colors = {
   light: {
     primary: '#1C59CD',
     border: 'rgb(39, 39, 41)',
+    secondary: 'red',
     surface: '#F6F7FB',
     text: '#000',
     stroke: '#000',
@@ -20,6 +21,8 @@ export const Colors = {
   dark: {
     primary: '#1C59CD',
     border: 'rgb(39, 39, 41)',
+    secondary: 'red',
+
     surface: '#1C1C1E',
 
     text: '#fff',

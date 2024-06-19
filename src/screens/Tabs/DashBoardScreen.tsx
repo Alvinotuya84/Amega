@@ -20,6 +20,7 @@ import Spacer from '@/src/components/reusables/Spacer';
 import {useToast} from '@/src/components/toast-manager';
 import useMainStore from '@/src/app/store2';
 import {useSafeNavigation} from '@/src/hooks/useSafeNavigation';
+import ThemedSwitchButton from '@/src/components/reusables/ThemedSwitchButton';
 
 type Props = {};
 
@@ -45,31 +46,40 @@ const DashBoardScreen = (props: Props) => {
       const response = await fetchJson<IpLocationResponse>(
         `https://ipwho.is/${ip}`,
       );
-      toast.showToast({
-        type: 'success',
-        title: 'IP Address fetched successfully',
-      });
-      setUserIpDetails({
-        ...response,
-        image: require('@/assets/slider/slider_one.png'),
-      });
+      if (response.success) {
+        toast.showToast({
+          type: 'success',
+          title: 'IP Address fetched successfully',
+        });
+        setUserIpDetails({
+          ...response,
+          image: require('@/assets/slider/slider_one.png'),
+        });
+      } else {
+        toast.showToast({
+          type: 'error',
+          title: 'IP Address not found',
+        });
+      }
+
       return response;
     },
   });
   return (
     <Box flex={1}>
-      <Box width={'100%'} px={scale(10)} color={theme.primary} align="flex-end">
-        <ThemedIconButton
-          radius={scale(20)}
-          height={scale(40)}
-          width={scale(40)}
-          icon={{
-            name: userTheme === 'light' ? 'moon' : 'sun',
-            color: theme.text,
-            size: 'xxl',
-            source: 'Feather',
+      <Box width={'100%'} color={theme.text} px={scale(10)} align="flex-end">
+        <ThemedSwitchButton
+          label={
+            userTheme === 'light' || userTheme === 'system'
+              ? 'Light Theme'
+              : 'Dark Theme'
+          }
+          labelProps={{
+            weight: 'bold',
+            color: theme.background,
           }}
-          onPress={() => {
+          value={userTheme === 'light' || userTheme === 'system' ? false : true}
+          onValueChange={() => {
             setTheme(userTheme === 'light' ? 'dark' : 'light');
           }}
         />
@@ -166,7 +176,7 @@ const DashBoardScreen = (props: Props) => {
               Timezone :
             </ThemedText>
             <ThemedText color={theme.background} size={'xs'}>
-              {ipData?.timezone.abbr} +{ipData?.timezone.utc}
+              {ipData?.timezone?.abbr} +{ipData?.timezone?.utc}
             </ThemedText>
           </Box>
           <Box height={'100%'} justify="space-between">
@@ -174,7 +184,7 @@ const DashBoardScreen = (props: Props) => {
               ISP :
             </ThemedText>
             <ThemedText color={theme.background} size={'xxxs'}>
-              {ipData?.connection.org}
+              {ipData?.connection?.org}
             </ThemedText>
           </Box>
         </Box>

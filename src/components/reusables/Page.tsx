@@ -112,20 +112,22 @@ const Page = forwardRef(
                     {props.header?.rightComponent ? (
                       props.header?.rightComponent
                     ) : (
-                      <ThemedIconButton
-                        radius={20}
-                        height={40}
-                        width={40}
-                        icon={{
-                          name: userTheme === 'light' ? 'sun' : 'moon',
-                          color: theme.text,
-                          size: 'xxl',
-                          source: 'Feather',
-                        }}
-                        onPress={() => {
-                          setTheme(userTheme === 'light' ? 'dark' : 'light');
-                        }}
-                      />
+                      <>
+                        <ThemedIconButton
+                          radius={scale(20)}
+                          height={scale(40)}
+                          width={scale(40)}
+                          icon={{
+                            name: userTheme === 'light' ? 'moon' : 'sun',
+                            color: theme.text,
+                            size: 'xxl',
+                            source: 'Feather',
+                          }}
+                          onPress={() => {
+                            setTheme(userTheme === 'light' ? 'dark' : 'light');
+                          }}
+                        />
+                      </>
                     )}
                   </Box>
                 </Box>

@@ -119,7 +119,7 @@ const MarketDataScreen = () => {
 
   return (
     <>
-      <Page px={20} header={{title: 'Trade'}} gap={10}>
+      <Page px={20} header={{title: 'Market'}} gap={10}>
         <Box block pa={20} radius={30} color={theme.surface}>
           {selectedPair?.symbol && (
             <WebView

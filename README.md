@@ -30,13 +30,9 @@ yarn install
 npx react-native run-android
 ```
 
-## Download the apk via Firebase app tester
-
-- [Android APK: ](https://appdistribution.firebase.dev/i/878df552558db865)
-
 ## Download the apk via google drive
 
--[Android APK: ](https://drive.google.com/file/d/1N6kp6NwcocgqQCCykseNG1k8PO9k5fKX/view?usp=sharing)
+-[Android APK: ](https://drive.google.com/file/d/1soClcjXzsSQZsHiXwWB2enm1rFBC3805/view?usp=sharing)
 
 ## Tech Stack
 

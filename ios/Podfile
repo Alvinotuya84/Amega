@@ -23,7 +23,7 @@ target 'Amega' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'Amegaests' do
+  target 'AmegaTests' do
     inherit! :complete
     # Pods for testing
   end

@@ -41,10 +41,10 @@ npx react-native run-android
 ## Screenshots
 
 - Home screen
-  ![](/assets/screenshot-recordings/Screenshot_1718774025.png)
+  ![](/assets/screenshot-recordings/Screenshot_1718774035.png)
 
 - Profile screen
-  ![](/assets/screenshot-recordings/Screenshot_1718774035.png)
+  ![](/assets/screenshot-recordings/Screenshot_1718774025.png)
 
 - Market Listing screen
   ![](/assets/screenshot-recordings/Screenshot_1718774055.png)

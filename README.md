@@ -47,7 +47,7 @@ npx react-native run-android
   ![](/assets/screenshot-recordings/Screenshot_1718777543.png)
 
 - Market Details Screen
-  ![](/assets/screenshot-recordings/Screenshot_1718778415.jpg)
+  ![](/assets/screenshot-recordings/Screenshot_1718778415.png)
 
 - Market Listing screen
   ![](/assets/screenshot-recordings/Screenshot_1718774055.png)

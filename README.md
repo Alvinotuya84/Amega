@@ -2,7 +2,8 @@
 
 A React Native app that displays user IP and ISP information, showcases a selectable image slider, and provides real-time market data for cryptocurrencies.
 
-https://github.com/Alvinotuya84/Amega/blob/main/assets/screenshot-recordings/Amega.gif
+- Overview
+  ![](/assets/screenshot-recordings/Amega.gif)
 
 ## Table of Contents
 

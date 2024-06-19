@@ -46,8 +46,8 @@ npx react-native run-android
 - Profile screen
   ![](/assets/screenshot-recordings/Screenshot_1718777543.png)
 
+- Market Details Screen
+  ![](/assets/screenshot-recordings/Screenshot_1718778415.jpg)
+
 - Market Listing screen
   ![](/assets/screenshot-recordings/Screenshot_1718774055.png)
-
-- Market Details Screen
-  ![](/assets/screenshot-recordings/Screenshot_1718774074.jpg)

@@ -45,13 +45,13 @@ npx react-native run-android
 ## Screenshots
 
 - Home screen
-  ![](/src/assets/screenshot-recordings/Screenshot_1718774025.png)
+  ![](/assets/screenshot-recordings/Screenshot_1718774025.png)
 
 - Profile screen
-  ![](/src/assets/screenshot-recordings/Screenshot_1718774035.png)
+  ![](/assets/screenshot-recordings/Screenshot_1718774035.png)
 
 - Market Listing screen
-  ![](/src/assets/screenshot-recordings/Screenshot_1718774055.png)
+  ![](/assets/screenshot-recordings/Screenshot_1718774055.png)
 
 - Market Details Screen
-  ![](/src/assets/screenshot-recordings/Screenshot_1718774074.jpg)
+  ![](/assets/screenshot-recordings/Screenshot_1718774074.jpg)

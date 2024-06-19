@@ -53,7 +53,7 @@ const ProfileScreen = (props: Props) => {
           <IpDetailsWrapper title="IP Address" value={userIpDetails?.ip} />
           <IpDetailsWrapper
             title="TimeZone"
-            value={`${userIpDetails?.timezone.abbr}/UTC ${userIpDetails?.timezone.utc}`}
+            value={`${userIpDetails?.timezone?.abbr}/UTC ${userIpDetails?.timezone?.utc}`}
           />
           <IpDetailsWrapper title="Location" value={userIpDetails?.country} />
           <IpDetailsWrapper title="ISP" value={userIpDetails?.region} />
